@@ -2,7 +2,6 @@ package things;
 
 import java.time.LocalDate;
 
-import javax.swing.text.TabExpander;
 
 public class StudyGroup {
     private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -63,5 +62,5 @@ public class StudyGroup {
         return groupAdmin;
     }
 
-    
+
 }

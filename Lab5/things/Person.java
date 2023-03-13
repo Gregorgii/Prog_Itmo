@@ -1,7 +1,9 @@
 package things;
 
 import java.time.LocalDate;
-
+/**
+* The class Person th work w persons
+*/
 
 public class Person {
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -15,18 +17,31 @@ public class Person {
         this.weight = weight;
         this.passportID = passportID;
     }
+    /**
+     * @return The persons name
+     */
 
     public String getName(){
         return name;
     }
+    /**
+     * @return The persons bday
+     */
 
     public LocalDate getBirthday(){
         return birthday;
     }
+    /**
+     * @return The perss weight
+     */
 
     public Long getWeight(){
         return weight;
     }
+
+    /**
+     * @return The perss passportID
+     */
 
     public String getPassportID(){
         return passportID;

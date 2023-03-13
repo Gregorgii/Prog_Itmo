@@ -2,6 +2,9 @@ package things;
 
 import java.time.LocalDate;
 
+/**
+* The hugest class that include all info about students and calls Study group
+*/
 
 public class StudyGroup {
     private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -26,37 +29,66 @@ public class StudyGroup {
         this.groupAdmin = groupAdmin;
     }
 
+    /**
+    * @return The info about Study Group (id)
+    */
+
     public Integer getId(){
         return id;
     }
-
+    /**
+    * @return The info about Study Group (name)
+    */
     public String getName(){
         return name;
     }
+    /**
+    * @return The info about Study Group (coordinates)
+    */
 
     public Coordinates getCoordinates(){
         return coordinates;
     }
+    /**
+    * @return The info about Study Group (creation date)
+    */
 
     public LocalDate getCreationDate(){
         return creationDate;
     }
 
+    /**
+    * @return The info about Study Group (count of studs)
+    */
+
     public Long getStudentsCount(){
         return studentsCount;
     }
+    /**
+    * @return The info about Study Group (how much should be expelled)
+    */
+    
 
     public Integer getShouldBeExpelled(){
         return shouldBeExpelled;
     }
+    /**
+    * @return The info about Study Group (how much was transferred)
+    */
 
     public Integer getTransferredStudents(){
         return transferredStudents;
     }
+    /**
+    * @return The info about Study Group (number of sem)
+    */
 
     public Semester getSemesterEnum(){
         return semesterEnum;
     }
+    /**
+    * @return The info about Study Group (groups admin)
+    */
 
     public Person getGroupAdmin(){
         return groupAdmin;

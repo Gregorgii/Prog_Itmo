@@ -1,5 +1,11 @@
 package commands;
 
+import java.io.Console;
+import java.util.ArrayList;
+
+import collection.Organize;
+import managers.CollectionManager;
+
 public class ShowCommand extends AbstractCommand {
     private final CollectionManager collectionManager;
     public ShowCommand(CollectionManager collectionManager) {
@@ -17,8 +23,8 @@ public class ShowCommand extends AbstractCommand {
     public boolean execute(String argument) {
         try {
             if (!argument.isEmpty()) throw new WrongAmountOfElementsException();
-            ArrayList<Organization> copyOfCollection = new ArrayList<>(collectionManager.getCollection());
-            for (Organization organization : copyOfCollection) {
+            ArrayList<Organize> copyOfCollection = new ArrayList<>(collectionManager.getCollection());
+            for (Organize organization : copyOfCollection) {
                 Console.printLn(organization.toString() + "\n============");
             }
             return true;

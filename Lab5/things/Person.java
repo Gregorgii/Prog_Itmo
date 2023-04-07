@@ -47,5 +47,12 @@ public class Person {
         return passportID;
     }
 
+    @Override
+    public int compareTo(Person personObj) {
+        return passportID.compareTo(personObj.getPassportID());
+    }
+
+
+
     
 }

@@ -14,9 +14,8 @@ public class HelpCommand extends AbstractCommand{
     @Override
     public boolean execute(String argument) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'execute'");
+        throw new UnsupportedOperationException();
     }
-
     
 
 }

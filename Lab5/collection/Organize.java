@@ -1,4 +1,5 @@
 package collection;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import things.*;
 
@@ -100,7 +101,7 @@ public class Organize implements Comparable<Organize>{
      * @return The id of the organization.
      */
     @Override
-    public int compareTo(Organization o) {
+    public int compareTo(Organize o) {
         return this.getId() - o.getId();
     }
 
@@ -113,10 +114,8 @@ public class Organize implements Comparable<Organize>{
      */
     @Override
     public String toString() {
-        String result = String.format("Id: %d\nName: %s\nCoordinates: {x: %d, y: %f}\nCreation Time: %s\nAnnual turnover: %f\nEmployees count: %d\nOrganization Type: %s\n",
-                getId(), getName(), getCoordinates().getX(), getCoordinates().getY(), getCreationDate(), getAnnualTurnover(), getEmployeesCount(), getType());
-        if(getPostalAddress() == null) result += "Address: null";
-        else result += String.format("Address: {Street: %s, ZipCode: %s}", getPostalAddress().getStreet(), getPostalAddress().getZipCode());
+        String result = String.format("Id: %d\nName: %s\nCoordinates: {x: %f, y: %d}\nCreation Date: %s\nStudents Count: %d\nShould be expelled: %d\nTransferred Students: %d\nSemester Enum: %s\nGroup Admin: %s\n",
+                getId(), getName(), getCoordinates().getX(), getCoordinates().getY(), getCreationDate(), getStudentsCount(), getShouldBeExpelled(), getTransferredStudents(), getSemesterEnum(), getGroupAdmin());
         return result;
     }
 

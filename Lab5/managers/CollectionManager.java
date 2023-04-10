@@ -1,21 +1,16 @@
 package managers;
-import java.nio.channels.FileLockInterruptionException;
-import java.text.CollationElementIterator;
-import java.time.LocalDateTime;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import commands.AddCommand;
 import things.*;
 
 public class CollectionManager {
-    private ArrayList<Person> studentsCollection = new ArrayList<Person>();
+    private ArrayList<StudyGroup> groupCollection = new ArrayList<StudyGroup>();
     private FileManager fileManager;
-    private LocalDateTime lastInitTime;
-    private LocalDateTime lastSaveTime;
 
     public CollectionManager(FileManager fileManager) {
-        this.lastInitTime = null;
-        this.lastSaveTime = null;
+
         this.fileManager = fileManager;
         
         loadCollection();
@@ -23,93 +18,73 @@ public class CollectionManager {
     /**
      * @return The collecton itself.
      */
-    public ArrayList<Person> getCollection(){
-        return studentsCollection;
-    }
-    /**
-     * @return Last initialization time or null if there wasn't initialization.
-     */
-    public LocalDateTime getLastInitTime() {
-        return lastInitTime;
-    }
-
-    /**
-     * @return Last save time or null if there wasn't saving.
-     */
-    public LocalDateTime getLastSaveTime() {
-        return lastSaveTime;
-    }
-
-    /**
-     * @return Name of the collection's type.
-     */
-    public String collectionType() {
-        return studentsCollection.getClass().getName();
+    public ArrayList<StudyGroup> getCollection(){
+        return groupCollection;
     }
 
     /**
      * @return Size of the collection.
      */
     public int collectionSize() {
-        return studentsCollection.size();
+        return groupCollection.size();
     }
 
     /**
      * @return The first element of the collection or null if collection is empty.
      */
-    public Person getFirst() {
-        if (studentsCollection.isEmpty()) return null;
-        return studentsCollection.get(0);
+    public StudyGroup getFirst() {
+        if (groupCollection.isEmpty()) return null;
+        return groupCollection.get(0);
     }
 
     /**
      * @return The last element of the collection or null if collection is empty.
      */
-    public Person getLast() {
-        if (studentsCollection.isEmpty()) return null;
-        return studentsCollection.get(studentsCollection.size());
+    public StudyGroup getLast() {
+        if (groupCollection.isEmpty()) return null;
+        return groupCollection.get(groupCollection.size());
     }
 
     /**
-     * @param id ID of the marine.
-     * @return A marine by his ID or null if marine isn't found.
+     * @param id ID of the group.
+     * @return A group by his ID or null if group isn't found.
      */
-    public Person getById(Long id) {
-        for (Person person: studentsCollection) {
-            if (person.getPassportID().equals(id)) return person;
+    public StudyGroup getById(Long id) {
+        for (StudyGroup studyGroup: groupCollection) {
+            if (studyGroup.getId().equals(id)) return studyGroup;
         }
         return null;
     }
 
     /**
-     * Adds a new person to collection.
-     * @param person A person to add.
+     * Adds a new group to collection.
+     * @param group A group to add.
      */
-    public void addToCollection(Person person) {
-        studentsCollection.add(person);
+    public void addToCollection(StudyGroup studyGroup) {
+        groupCollection.add(studyGroup);
     }
 
     /**
-     * Removes a new marine to collection.
-     * @param marine A marine to remove.
+     * Removes a group from collection.
+     * @param group A group to remove.
      */
     public void removeByID(Long id) {
-        studentsCollection.remove(id);
+        groupCollection.remove(id);
     }
 
     /**
-     * Remove marines greater than the selected one.
-     * @param marineToCompare A marine to compare with.
+     * Remove group greater than the selected one.
+     * @param groupToCompare A group to compare with.
      */
-    public void removeGreater(Person personToCompapare) {
-        studentsCollection.removeIf(person -> person.compareTo(personToCompapare) > 0);
+    public void removeGreater(StudyGroup groupToCompare) {
+        groupCollection.removeIf(groupCollection -> groupCollection.compareTo(groupToCompare) > 0);
     }
 
     /**
      * Clears the collection.
      */
     public void clearCollection() {
-        studentsCollection.clear();
+        groupCollection.clear();
     }
 
     /**
@@ -117,40 +92,38 @@ public class CollectionManager {
      * @return Next ID.
      */
     public Long generateNextId() {
-        if (studentsCollection.isEmpty()) return 1L;
-        return studentsCollection.get(studentsCollection.size() - 1).getId() + 1;
+        if (groupCollection.isEmpty()) return 1L;
+        return (long) (groupCollection.get(groupCollection.size() - 1).getId() + 1);
     }
 
     /**
      * Saves the collection to file.
+     * @throws IOException
      */
-    public void saveCollection() {
-            fileManager.writeCollection(marinesCollection);
-            lastSaveTime = LocalDateTime.now();
+    public void saveCollection() throws IOException {
+            fileManager.writeCollection(groupCollection, null);
     }
 
     /**
      * Loads the collection from file.
+     * @throws IOException
      */
-    private void loadCollection() {
-        marinesCollection = fileManager.readCollection();
-        lastInitTime = LocalDateTime.now();
+    private void loadCollection() throws IOException {
+       groupCollection = fileManager.readCollection(null);
     }
 
     @Override
     public String toString() {
-        if (marinesCollection.isEmpty()) return "Коллекция пуста!";
+        if (groupCollection.isEmpty()) return "Коллекция пуста!";
 
         String info = "";
-        for (SpaceMarine marine : marinesCollection) {
-            info += marine;
-            if (marine != marinesCollection.last()) info += "\n\n";
+        for (StudyGroup studyGroup : groupCollection) {
+            info += studyGroup;
+            if (studyGroup != groupCollection.get(groupCollection.size())) info += "\n\n";
         }
         return info;
     }
 }
 
-    
-}
 
 

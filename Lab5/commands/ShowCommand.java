@@ -4,6 +4,7 @@ import java.io.Console;
 import java.util.ArrayList;
 
 import collection.Organize;
+import exceptions.WrongAmountOfElementsException;
 import managers.CollectionManager;
 
 public class ShowCommand extends AbstractCommand {

@@ -1,5 +1,9 @@
 package commands;
 
+import collection.OrganizationAsker;
+import exceptions.WrongAmountOfElementsException;
+import managers.CollectionManager;
+
 public class AddCommand {
     private final CollectionManager collectionManager;
     private final OrganizationAsker organizationAsker;

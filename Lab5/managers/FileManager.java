@@ -1,69 +1,76 @@
 package managers;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Collection;
-import java.util.Scanner;
-import java.util.TreeSet;
-import java.util.NoSuchElementException;
-import java.lang.reflect.Type;
 
+import java.io.*;
+import java.util.*;
+
+import things.StudyGroup;
 
 /**
  * Operates the file for saving/loading collection.
  */
 public class FileManager {
-    private String envVariable;
-
+    /**
+     * Constructor for FileManager.
+     * @param envVariable Environment variable for file path.
+     */
     public FileManager(String envVariable) {
-        this.envVariable = envVariable;
     }
 
     /**
      * Writes collection to a file.
      * @param collection Collection to write.
+     * @param fileName Name of the file to write to.
+     * @throws IOException If an I/O error occurs.
      */
-    public void writeCollection(Collection<?> collection) {
-        if (System.getenv().get(envVariable) != null) {
-            try (FileWriter collectionFileWriter = new FileWriter(new File(System.getenv().get(envVariable)))) {
-                collectionFileWriter.write(gson.toJson(collection));
-                Console.println("Коллекция успешна сохранена в файл!");
-            } catch (IOException exception) {
-                Console.printerror("Загрузочный файл является директорией/не может быть открыт!");
-            }
-        } else Console.printerror("Системная переменная с загрузочным файлом не найдена!");
+    public void writeCollection(Collection<?> collection, String fileName) throws IOException {
+        OutputStream outputStream = new FileOutputStream(fileName);
+        PrintWriter printWriter = new PrintWriter(outputStream);
+
+        // Write XML header and opening tag for collection
+        printWriter.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+        printWriter.println("<collection>");
+
+        // Write each element of the collection as a separate XML element
+        for (Object element : collection) {
+            printWriter.print("  <element>");
+            printWriter.print(element.toString());
+            printWriter.println("</element>");
+        }
+
+        // Write closing tag for collection
+        printWriter.println("</collection>");
+
+        // Close the PrintWriter and OutputStream
+        printWriter.close();
+        outputStream.close();
     }
 
     /**
      * Reads collection from a file.
-     * @return Readed collection.
+     * @param fileName Name of the file to read from.
+     * @return Read collection.
+     * @throws IOException If an I/O error occurs.
      */
-    public TreeSet<SpaceMarine> readCollection() {
-        if (System.getenv().get(envVariable) != null) {
-            try (Scanner collectionFileScanner = new Scanner(new File(System.getenv().get(envVariable)))) {
-                TreeSet<SpaceMarine> collection;
-                Type collectionType = new TypeToken<TreeSet<SpaceMarine>>() {}.getType();
-                collection = gson.fromJson(collectionFileScanner.nextLine().trim(), collectionType);
-                Console.println("Коллекция успешна загружена!");
-                return collection;
-            } catch (FileNotFoundException exception) {
-                Console.printerror("Загрузочный файл не найден!");
-            } catch (NoSuchElementException exception) {
-                Console.printerror("Загрузочный файл пуст!");
-            } catch (JsonParseException | NullPointerException exception) {
-                Console.printerror("В загрузочном файле не обнаружена необходимая коллекция!");
-            } catch (IllegalStateException exception) {
-                Console.printerror("Непредвиденная ошибка!");
-                System.exit(0);
-            }
-        } else Console.printerror("Системная переменная с загрузочным файлом не найдена!");
-        return new TreeSet<SpaceMarine>();
-    }
+    public ArrayList<StudyGroup> readCollection(String fileName) throws IOException {
+        InputStream inputStream = new FileInputStream(fileName);
+        Scanner scanner = new Scanner(inputStream);
 
-    @Override
-    public String toString() {
-        String string = "FileManager (класс для работы с загрузочным файлом)";
-        return string;
+        Collection<String> collection = new ArrayList<>();
+
+        // Read each line of the file and add any elements to the collection
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine().trim();
+
+            if (line.startsWith("<element>") && line.endsWith("</element>")) {
+                String element = line.substring("<element>".length(), line.length() - "</element>".length());
+                collection.add(element);
+            }
+        }
+
+        // Close the Scanner and InputStream
+        scanner.close();
+        inputStream.close();
+
+        return collection;
     }
 }

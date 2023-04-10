@@ -1,5 +1,10 @@
 package commands;
 
+import java.io.Console;
+
+import exceptions.WrongAmountOfElementsException;
+import managers.CollectionManager;
+
 public class InfoCommand extends AbstractCommand {
     private final CollectionManager collectionManager;
 

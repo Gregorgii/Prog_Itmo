@@ -46,13 +46,5 @@ public class Person {
     public String getPassportID(){
         return passportID;
     }
-
-    @Override
-    public int compareTo(Person personObj) {
-        return passportID.compareTo(personObj.getPassportID());
-    }
-
-
-
     
 }

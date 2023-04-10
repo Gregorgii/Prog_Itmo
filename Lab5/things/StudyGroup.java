@@ -95,4 +95,9 @@ public class StudyGroup {
     }
 
 
+    public int compareTo(StudyGroup groupObj) {
+        return id.compareTo(groupObj.getId());
+    }
+
+
 }

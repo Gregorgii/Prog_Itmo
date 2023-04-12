@@ -45,3 +45,20 @@ public class AddCommand {
         return false;
     }
 }
+
+
+
+public class AddCommand extends AbstractCommand {
+    private final CollectionManager collectionManager;
+    private final StudyGroupParser studyGroupParser;
+
+    public AddCommand(CollectionManager collectionManager, StudyGroupParser studyGroupParser) {
+        this.collectionManager = collectionManager;
+        this.studyGroupParser = studyGroupParser;
+    }
+
+    @Override
+    public void execute() {
+        collectionManager.addToCollection(studyGroupParser.parseStudyGroup());
+    }
+}

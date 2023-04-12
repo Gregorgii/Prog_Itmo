@@ -2,14 +2,14 @@ package managers;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import commands.AddCommand;
+
 import things.*;
 
 public class CollectionManager {
     private ArrayList<StudyGroup> groupCollection = new ArrayList<StudyGroup>();
     private FileManager fileManager;
 
-    public CollectionManager(FileManager fileManager) {
+    public CollectionManager(FileManager fileManager) throws IOException {
 
         this.fileManager = fileManager;
         

@@ -25,3 +25,19 @@ public class InfoCommand extends AbstractCommand {
         return false;
     }
 }
+
+
+public class InfoCommand implements Command {
+    private final CollectionManager collectionManager;
+
+    public InfoCommand(CollectionManager collectionManager) {
+        this.collectionManager = collectionManager;
+    }
+
+    @Override
+    public void execute() {
+        System.out.println("Тип коллекции: " + collectionManager.collectionType());
+        System.out.println("Дата инициализации: " + collectionManager.initializationDate());
+        System.out.println("Количество элементов: " + collectionManager.size());
+    }
+}

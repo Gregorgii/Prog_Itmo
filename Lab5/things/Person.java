@@ -11,6 +11,12 @@ public class Person {
     private long weight; //Значение поля должно быть больше 0
     private String passportID; //Строка не может быть пустой, Поле не может быть null
 
+    /**
+     * @param name
+     * @param birthday
+     * @param weight
+     * @param passportID
+     */
     public Person(String name, LocalDate birthday, Long weight, String passportID){
         this.name = name;
         this.birthday = birthday;

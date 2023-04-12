@@ -35,3 +35,17 @@ public class ShowCommand extends AbstractCommand {
         return false;
     }
 }
+
+
+public class ShowCommand implements Command {
+    private final CollectionManager collectionManager;
+
+    public ShowCommand(CollectionManager collectionManager) {
+        this.collectionManager = collectionManager;
+    }
+
+    @Override
+    public void execute() {
+        collectionManager.collectionElements().forEach(System.out::println);
+    }
+}

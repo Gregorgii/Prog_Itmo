@@ -3,7 +3,6 @@ package managers;
 import java.io.*;
 import java.util.*;
 
-import things.StudyGroup;
 
 /**
  * Operates the file for saving/loading collection.
@@ -51,7 +50,7 @@ public class FileManager {
      * @return Read collection.
      * @throws IOException If an I/O error occurs.
      */
-    public ArrayList<StudyGroup> readCollection(String fileName) throws IOException {
+    public Collection<String> readCollection(String fileName) throws IOException {
         InputStream inputStream = new FileInputStream(fileName);
         Scanner scanner = new Scanner(inputStream);
 

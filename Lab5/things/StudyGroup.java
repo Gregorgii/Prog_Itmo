@@ -17,6 +17,17 @@ public class StudyGroup {
     private Semester semesterEnum; //Поле не может быть null
     private Person groupAdmin; //Поле не может быть null
 
+    /**
+     * @param id
+     * @param name
+     * @param coordinates
+     * @param creationDate
+     * @param studentsCount
+     * @param shouldBeExpelled
+     * @param transferredStudents
+     * @param semesterEnum
+     * @param groupAdmin
+     */
     public StudyGroup(Integer id, String name, Coordinates coordinates, java.time.LocalDate creationDate, Long studentsCount, Integer shouldBeExpelled, Integer transferredStudents, Semester semesterEnum, Person groupAdmin){
         this.id = id;
         this.name = name;

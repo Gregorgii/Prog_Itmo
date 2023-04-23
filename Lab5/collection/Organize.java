@@ -1,6 +1,5 @@
 package collection;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import things.*;
 
 public class Organize implements Comparable<Organize>{
@@ -119,9 +118,4 @@ public class Organize implements Comparable<Organize>{
         return result;
     }
 
-    @Override
-    public int compareTo(Organize o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'compareTo'");
-    }
 }

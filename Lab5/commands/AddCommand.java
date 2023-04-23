@@ -1,17 +1,17 @@
 package commands;
 
-import collection.OrganizationAsker;
 import exceptions.WrongAmountOfElementsException;
 import managers.CollectionManager;
+import managers.IoManager;
 
 public class AddCommand {
     private final CollectionManager collectionManager;
-    private final OrganizationAsker organizationAsker;
+    private final IoManager ioManager;
 
-    public AddCommand(CollectionManager collectionManager, OrganizationAsker organizationAsker) {
+    public AddCommand(CollectionManager collectionManager, IoManager ioManager) {
         super("add {element}", "add a new element to the collection");
         this.collectionManager = collectionManager;
-        this.organizationAsker = organizationAsker;
+        this.ioManager = ioManager;
     }
 
 

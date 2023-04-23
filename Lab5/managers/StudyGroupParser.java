@@ -1,9 +1,12 @@
 package managers;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
+
 
 import things.Coordinates;
 import things.Person;
+import things.Semester;
 import things.StudyGroup;
 
 public class StudyGroupParser {
@@ -14,64 +17,58 @@ public class StudyGroupParser {
     }
 
     public StudyGroup parseStudyGroup() {
-        Integer id = 
-        String name = ioManager.inputString("Введите имя:");
+        Integer id = ioManager.inputInt("Введите ID группы:");
+        String name = ioManager.inputString("Введите название группы:");
         Coordinates coordinates = parseCoordinates();
-        LocalDateTime creationDate = LocalDateTime.now();
-        int studentsCount = ioManager.inputInt("Введите количество студентов:");
-        
+        LocalDate creationDate = LocalDate.now();
+        long studentsCount = ioManager.inputLong("Введите количество студентов:");
+        Integer shouldBeExpelled  = ioManager.inputInt("Введите количество отчисляемых:");
+        Integer transferredStudents = ioManager.inputInt("Введите количество переведенных:");
+        Semester semesterEnum = parseSemesterEnum();
         Person groupAdmin = parsePerson();
-        return new StudyGroup(name, coordinates, creationDate, studentsCount, formOfEducation, groupAdmin);
+        
+        return new StudyGroup(id, name, coordinates, creationDate, studentsCount, shouldBeExpelled, transferredStudents, semesterEnum, groupAdmin);
     }
 
     private Coordinates parseCoordinates() {
-        int x = ioManager.inputInt("Введите координату x:");
-        double y = ioManager.inputDouble("Введите координату y:");
+        Double x = ioManager.inputDouble("Введите координату x:");
+        long y = ioManager.inputLong("Введите координату y:");
         return new Coordinates(x, y);
     }
 
-    private FormOfEducation parseFormOfEducation() {
-        FormOfEducation formOfEducation = null;
-        while (formOfEducation == null) {
-            try {
-                formOfEducation = FormOfEducation.valueOf(ioManager.inputString("Введите форму обучения(" + Arrays.toString(FormOfEducation.values()) + "):").toUpperCase());
-            } catch (IllegalArgumentException e) {
-                System.out.println("Неверное значение. Попробуйте еще раз.");
+    private Semester parseSemesterEnum() {
+        String semesterEnum = null;
+        while(semesterEnum == null ){
+            try{
+                semesterEnum = ioManager.inputString("Введите номер семестра:");
+            } catch (Exception e) {
+                System.out.println("Попробуйте ввести на английском языке капсом:");
             }
         }
-        return formOfEducation;
+        return Semester.valueOf(semesterEnum);
+    }
+
+    private LocalDate parseDate(String message) {
+        LocalDate date = null;
+        while (date == null) {
+            try {
+                date = LocalDate.parse(ioManager.inputString(message));
+            } catch (Exception e) {
+                System.out.println("Неверный формат даты. Попробуйте еще раз.");
+            }
+        }
+        return date;
     }
 
     private Person parsePerson() {
-        String name = ioManager.inputString("Введите имя админа:");
-        long height = ioManager.inputLong("Введите рост админа:");
-        String passportID = ioManager.inputString("Введите номер паспорта админа:");
-        Color hairColor = parseHairColor();
-        Country nationality = parseNationality();
-        return new Person(name, height, passportID, hairColor, nationality);
+        String name = ioManager.inputString("Введите имя:");
+        LocalDate birthday = parseDate("Введите дату в формате yyyy-MM-dd:");
+        long weight = ioManager.inputLong("Введите вес:");        
+        String passportID = ioManager.inputString("Введите номер паспорта:");
+        return new Person(name, birthday, weight, passportID);
     }
 
-    private Color parseHairColor() {
-        Color hairColor = null;
-        while (hairColor == null) {
-            try {
-                hairColor = Color.valueOf(ioManager.inputString("Введите цвет волос(" + Arrays.toString(Color.values()) + "):").toUpperCase());
-            } catch (IllegalArgumentException e) {
-                System.out.println("Неверное значение. Попробуйте еще раз.");
-            }
-        }
-        return hairColor;
-    }
-
-    private Country parseNationality() {
-        Country nationality = null;
-        while (nationality == null) {
-            try {
-                nationality = Country.valueOf(ioManager.inputString("Введите национальность(" + Arrays.toString(Country.values()) + "):").toUpperCase());
-            } catch (IllegalArgumentException e) {
-                System.out.println("Неверное значение. Попробуйте еще раз.");
-            }
-        }
-        return nationality;
-    }
 }
+
+
+

@@ -2,7 +2,6 @@ package managers;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 import things.*;
 
 public class CollectionManager {
@@ -68,8 +67,8 @@ public class CollectionManager {
      * Removes a group from collection.
      * @param group A group to remove.
      */
-    public void removeByID(Long id) {
-        groupCollection.remove(id);
+    public void removeByID(Integer id) {
+        groupCollection.removeIf(groupCollection -> groupCollection.getId() == id);
     }
 
     /**
@@ -122,6 +121,9 @@ public class CollectionManager {
             if (studyGroup != groupCollection.get(groupCollection.size())) info += "\n\n";
         }
         return info;
+    }
+    public Object infoAboutCollection() {
+        return null;
     }
 }
 
